@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const userService = {
     register,
 };
@@ -19,11 +21,5 @@ export const userService = {
 // }
 
 function register(user) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-    };
-
-    return fetch(`http://localhost:3600/users/register`, requestOptions);    
+    return axios.post('http://localhost:3600/register/', user).then(res => console.log(res.data))
 }

@@ -7,9 +7,7 @@ import Home from './components/Home'
 class App extends React.Component {
   render() {
     return (
-      <div className="jumbotron">
-        <div className="container">
-          <div className="col-sm-8 col-sm-offset-2">
+          <div>
             <Router>
               <Switch>
                 <Route exact path="/" component={Home} />
@@ -19,8 +17,6 @@ class App extends React.Component {
               </Switch>
             </Router>
           </div>
-        </div>
-      </div>
     );
   }
 }

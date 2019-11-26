@@ -41,33 +41,37 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="col-md-6 .offset-md-6">
-                <h2>Login App</h2>
-                <form  autoComplete="off" onSubmit={this.handleSubmit}>
-                    <div>
-                        <TextField
-                            required
-                            label="Email"
-                            margin="normal"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                        />
-                        <TextField
-                            required
-                            label="Password"
-                            margin="normal"
-                            name="password"
-                            type="password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="mt-3">
-                        <Button variant="contained" type="submit" color="primary">Login </Button>
-                        <Link to="/register" className="btn btn-link">Register</Link>
-                    </div>
-                </form>
+            <div className='wrapper'>
+                <div className='form-wrapper'>
+                    <h2>Login App</h2>
+                    <form autoComplete="off" onSubmit={this.handleSubmit}>
+                        <div>
+                            <TextField
+                                required
+                                label="Email"
+                                margin="normal"
+                                name="email"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                                className="text-box"
+                            />
+                            <TextField
+                                required
+                                label="Password"
+                                margin="normal"
+                                name="password"
+                                type="password"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                                className="text-box"
+                            />
+                        </div>
+                        <div className="mt-3">
+                            <Button variant="contained" type="submit" color="primary">Login </Button>
+                            <Link to="/register" className="btn btn-link">Register</Link>
+                        </div>
+                    </form>
+                </div>
             </div>
         );
     };
