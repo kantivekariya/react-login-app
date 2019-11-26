@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import axios from 'axios';
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -33,7 +33,12 @@ class Register extends React.Component {
         event.preventDefault();
         const { user } = this.state;
         if (user.firstName && user.lastName && user.email && user.password) {
+            // const requestOptions = {
+            //     headers: { 'Content-Type': 'Access-Control-Allow-Origin' },
+            //     body: JSON.stringify(user)
+            // };
             console.log(user)
+            axios.post('http://localhost:3600/register/', user).then(res => console.log(res.data))
         }
     }
 
@@ -48,7 +53,7 @@ class Register extends React.Component {
                             label="First Name"
                             margin="normal"
                             name="firstName"
-                            value={this.state.username}
+                            value={this.state.firstName}
                             onChange={this.handleChange}
                         />
                         <TextField

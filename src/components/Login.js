@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 class Login extends React.Component {
     constructor(props) {
@@ -33,14 +34,16 @@ class Login extends React.Component {
         const { user } = this.state;
         if (user.email && user.password) {
             console.log(user)
+            localStorage.setItem('user', JSON.stringify(user));
+            axios.post('http://localhost:3600/login/', user).then(res => console.log(res.data))
         }
     }
 
     render() {
         return (
-            <div className="col-md-6 col-md-offset-3">
+            <div className="col-md-6 .offset-md-6">
                 <h2>Login App</h2>
-                <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                <form  autoComplete="off" onSubmit={this.handleSubmit}>
                     <div>
                         <TextField
                             required
