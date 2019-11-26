@@ -3,6 +3,20 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+
+function toastify() {
+    toast.success("🦄 Success", {
+        position: toast.POSITION.TOP_RIGHT
+    });
+}
+
+function toastify_error() {
+    toast.error("🦄 Email alerady exits!!", {
+        position: toast.POSITION.TOP_RIGHT
+    });
+}
+
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -10,7 +24,7 @@ class Register extends React.Component {
             user: {
                 firstName: '',
                 lastName: '',
-                phoneno: '',
+                phone: '',
                 email: '',
                 password: ''
             },
@@ -31,11 +45,19 @@ class Register extends React.Component {
         });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         const { user } = this.state;
         if (user.firstName && user.lastName && user.email && user.password) {
-            axios.post('http://localhost:3600/register/', user).then(res => console.log(res.data))
+            await axios.post('http://localhost:3600/register/', user).then((response) => {
+                toastify();
+                setTimeout(() => {
+                    this.props.history.push("/login");
+                }, 1000);
+
+            }).catch(err => {
+                toastify_error();
+            });
         }
     }
 
@@ -44,6 +66,8 @@ class Register extends React.Component {
             <div className='wrapper'>
                 <div className='form-wrapper'>
                     <h2>Register</h2>
+                    <ToastContainer />
+
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div>
                             <TextField
@@ -68,8 +92,8 @@ class Register extends React.Component {
                                 required
                                 label="Phone No"
                                 margin="normal"
-                                name="phoneno"
-                                value={this.state.phoneno}
+                                name="phone"
+                                value={this.state.phone}
                                 className="text-box"
                                 onChange={this.handleChange}
                             />
@@ -96,6 +120,7 @@ class Register extends React.Component {
                         </div>
                         <div className="pt-4 ">
                             <Button variant="contained" type="submit" color="primary">Register</Button>
+                            {/* <Button variant="contained" onClick={this.notify} color="primary">Notification</Button> */}
                             <Link to="/login" className="btn btn-link">Cancel</Link>
                         </div>
                     </form>
