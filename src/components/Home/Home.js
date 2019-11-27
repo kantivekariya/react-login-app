@@ -1,27 +1,37 @@
 import React from "react";
-import axios from 'axios';
+import { authenticationService } from '../../shared/_services/_services'
 
-// function getAll() {
-//     return axios.get('http://localhost:3600/users/');
-// }
 class Home extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.getAll();
-        // const res = getAll();
-    }
 
-    getAll(){
-        axios.get('http://localhost:3600/users/').then((res)=>{
-            console.log(res.data);
+        this.state = {
+            currentUser: authenticationService.currentUserValue,
+            users: null
+        };
+
+    }
+    componentDidMount() {
+        authenticationService.getAll().then((users) => {
+            this.setState({ users })
+            console.log(this.state.currentUser)
         });
     }
     render() {
+        const { currentUser, users } = this.state;
         return (
             <div>
-                <h1>Home</h1>
+                {users &&
+                    <ul>
+                        {users.map(user =>
+                            <li key={user._id}>{user.firstName} {user.lastName}</li>
+                        )}
+                    </ul>
+                }
             </div>
         );
     };
 }
+
+
 export default Home;

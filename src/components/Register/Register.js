@@ -2,20 +2,9 @@ import React from "react";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { authenticationService } from '../../shared/_services/_services';
 
-function toastify() {
-    toast.success("🦄 Success", {
-        position: toast.POSITION.TOP_RIGHT
-    });
-}
 
-function toastify_error() {
-    toast.error("🦄 Email alerady exits!!", {
-        position: toast.POSITION.TOP_RIGHT
-    });
-}
 
 class Register extends React.Component {
     constructor(props) {
@@ -49,15 +38,7 @@ class Register extends React.Component {
         event.preventDefault();
         const { user } = this.state;
         if (user.firstName && user.lastName && user.email && user.password) {
-            await axios.post('http://localhost:3600/register/', user).then((response) => {
-                toastify();
-                setTimeout(() => {
-                    this.props.history.push("/login");
-                }, 1000);
-
-            }).catch(err => {
-                toastify_error();
-            });
+            authenticationService.register(user);
         }
     }
 
@@ -66,7 +47,6 @@ class Register extends React.Component {
             <div className='wrapper'>
                 <div className='form-wrapper'>
                     <h2>Register</h2>
-                    <ToastContainer />
 
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div>

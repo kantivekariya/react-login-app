@@ -2,14 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-
-function toastify_error() {
-    toast.error("🦄 Invalid Username & Password", {
-        position: toast.POSITION.TOP_RIGHT
-    });
-}
+import { authenticationService } from '../../shared/_services/_services';
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +15,10 @@ class Login extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        if (authenticationService.currentUserValue) { 
+            this.props.history.push('/home');
+        }
+        
     }
 
     handleChange(e) {
@@ -39,14 +36,7 @@ class Login extends React.Component {
         e.preventDefault();
         const { user } = this.state;
         if (user.email && user.password) {
-            localStorage.setItem('user', JSON.stringify(user));
-            axios.post('http://localhost:3600/login/', user).then((res) => {
-                setTimeout(() => {
-                    this.props.history.push('/home');
-                }, 1000);
-            }).catch(err => {
-                toastify_error();
-            });;
+            authenticationService.login(user)
         }
     }
 
@@ -55,7 +45,6 @@ class Login extends React.Component {
             <div className='wrapper'>
                 <div className='form-wrapper'>
                     <h2>Login</h2>
-                    <ToastContainer />
                     <form autoComplete="off" onSubmit={this.handleSubmit}>
                         <div>
                             <TextField
