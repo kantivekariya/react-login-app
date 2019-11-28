@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import  { TextField, Button } from '../../shared/react-material/react-material';
 import { authenticationService } from '../../shared/_services/_services';
 class Login extends React.Component {
     constructor(props) {
@@ -15,9 +14,9 @@ class Login extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        if (authenticationService.currentUserValue) { 
-            this.props.history.push('/home');
-        }
+        // if (authenticationService.currentUserValue) { 
+        //     this.props.history.push('/home');
+        // }
         
     }
 

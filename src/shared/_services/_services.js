@@ -1,5 +1,7 @@
+import { config } from '../config/env.config'
 import { BehaviorSubject } from 'rxjs';
 import { authHeader } from '../_helpers/auth-header';
+
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
 export const authenticationService = {
     login,
@@ -16,7 +18,7 @@ function login(user) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
     };
-    return fetch(`http://localhost:3600/login/`, requestOptions)
+    return fetch(`${config.apiUrl}/login/`, requestOptions)
         .then(res => res.json())
         .then(user => {
             localStorage.setItem('user', JSON.stringify(user));
@@ -30,7 +32,7 @@ function register(user) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
     };
-    return fetch(`http://localhost:3600/register/`, requestOptions)
+    return fetch(`${config.apiUrl}/register/`, requestOptions)
         .then(res => res.json())
         .then(user => {
             return user;
@@ -42,7 +44,7 @@ function getAll() {
         method: 'GET',
         headers: authHeader()
     };
-    return fetch(`http://localhost:3600/users/`, requestOptions).then(res => res.json());
+    return fetch(`${config.apiUrl}/users/`, requestOptions).then(res => res.json());
 }
 
 function logout() {

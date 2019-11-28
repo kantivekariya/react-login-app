@@ -1,6 +1,5 @@
 import React from "react";
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import  { TextField, Button } from '../../shared/react-material/react-material';
 import { Link } from 'react-router-dom';
 import { authenticationService } from '../../shared/_services/_services';
 
@@ -100,7 +99,6 @@ class Register extends React.Component {
                         </div>
                         <div className="pt-4 ">
                             <Button variant="contained" type="submit" color="primary">Register</Button>
-                            {/* <Button variant="contained" onClick={this.notify} color="primary">Notification</Button> */}
                             <Link to="/login" className="btn btn-link">Cancel</Link>
                         </div>
                     </form>
